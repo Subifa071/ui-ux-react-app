@@ -2,6 +2,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { LinearGradient } from "expo-linear-gradient";
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   Dimensions,
   Image,
   Platform,
@@ -13,6 +14,7 @@ import {
 import { ChevronLeftIcon } from "react-native-heroicons/outline";
 import { HeartIcon } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
+import StarRating from "react-native-star-rating-widget";
 import {
   fallbackMoviePoster,
   fetchMovieCredits,
@@ -37,6 +39,7 @@ export default function MovieScreen() {
   const [similarMovies, setSimilarMovies] = useState([]);
   const [isFavourite, toggleFavourite] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [rating, setRating] = useState(0);
 
   useEffect(() => {
     setLoading(true);
@@ -51,6 +54,7 @@ export default function MovieScreen() {
     setLoading(false);
     if (data) {
       setMovie({ ...movie, ...data });
+      setRating(data.vote_average / 2);
     }
   };
   const getMovieCredits = async (id) => {
@@ -120,9 +124,7 @@ export default function MovieScreen() {
           </View>
         )}
       </View>
-
       {/* movie details */}
-
       <View style={{ marginTop: -(height * 0.09) }} className="space-y-3">
         {/* title */}
         <Text className="text-white text-center text-3xl font-bold tracking-widest">
@@ -135,6 +137,29 @@ export default function MovieScreen() {
             {movie?.status} • {movie?.release_date?.split("-")[0] || "N/A"} •{" "}
             {movie?.runtime} min
           </Text>
+        ) : null}
+
+        {/* Rating */}
+        {movie?.id ? (
+          <View className="flex items-center">
+            <StarRating
+              rating={rating}
+              starSize={25}
+              onChange={(e) => {
+                setRating(e);
+                Alert.alert(
+                  `Your ${e} review point has been submitted`,
+                  "Press OK to close",
+                  [
+                    {
+                      text: "OK",
+                    },
+                  ]
+                );
+              }}
+              enableSwiping={false}
+            />
+          </View>
         ) : null}
 
         {/* genres  */}
@@ -157,12 +182,10 @@ export default function MovieScreen() {
           {movie?.overview}
         </Text>
       </View>
-
       {/* cast */}
       {movie?.id && cast.length > 0 && (
         <Cast navigation={navigation} cast={cast} />
       )}
-
       {/* similar movies section */}
       {movie?.id && similarMovies.length > 0 && (
         <MovieList

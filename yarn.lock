@@ -6223,6 +6223,11 @@ react-native-snap-carousel@^4.0.0-beta.6:
     "@types/react-addons-shallow-compare" "^0.14.22"
     react-addons-shallow-compare "15.6.2"
 
+react-native-star-rating-widget@^1.7.3:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/react-native-star-rating-widget/-/react-native-star-rating-widget-1.7.3.tgz#ef60283e26ad951b37d2205618b60f835776aba6"
+  integrity sha512-5XY05vezOs21S+jSItgLHH5LoIRpCrSKbELPnkW+ct8yt0Nqs7w3HzeHMhX9TDW2BT7fkcT3rW6x9AVFKLb3zA==
+
 react-native-star-rating@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-native-star-rating/-/react-native-star-rating-1.1.0.tgz#57fcd023c63e947427c4dbbd1c8f4cc49e5c48ce"
