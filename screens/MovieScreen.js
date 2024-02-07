@@ -7,6 +7,7 @@ import {
   Platform,
   ScrollView,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
@@ -37,6 +38,8 @@ export default function MovieScreen() {
   const [similarMovies, setSimilarMovies] = useState([]);
   const [isFavourite, toggleFavourite] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [review, setReview] = useState("");
+  const [isAddingReview, setIsAddingReview] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -151,6 +154,63 @@ export default function MovieScreen() {
             );
           })}
         </View>
+
+        {isAddingReview && (
+          <View className="flex items-center justify-center flex-row gap-2">
+            <TextInput
+              className={
+                "border-[0.5px] border-gray-300 p-2 rounded-lg text-white placeholder-gray-300"
+              }
+              style={{ width: 250, color: "white" }}
+              placeholder="Input your review"
+              value={review}
+              onChangeText={setReview}
+            />
+
+            <TouchableOpacity
+              className="items-center bg-green-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 w-lg"
+              onPress={() => {
+                setIsAddingReview(false);
+              }}
+            >
+              <Text className="text-[#0A0A0A] text-center font-medium">
+                Save
+              </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              className="items-center bg-red-400 text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 w-lg"
+              onPress={() => {
+                setIsAddingReview(false);
+              }}
+            >
+              <Text className="text-[#0A0A0A] text-center font-medium">
+                Exit
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
+        {!isAddingReview && review.length > 0 && (
+          <View className="max-w-lg m-auto">
+            <Text className="text-white text-lg text-center font-bold">
+              {review}
+            </Text>
+          </View>
+        )}
+
+        {!isAddingReview && review.length === 0 && (
+          <View className="max-w-lg m-auto">
+            <TouchableOpacity
+              className="items-center bg-[#F4AE0D] text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50 w-lg"
+              onPress={() => setIsAddingReview(true)}
+            >
+              <Text className="text-[#0A0A0A] text-center font-medium">
+                Add Your Review
+              </Text>
+            </TouchableOpacity>
+          </View>
+        )}
 
         {/* description */}
         <Text className="text-neutral-400 mx-4 tracking-wide">
