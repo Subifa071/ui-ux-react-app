@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
+  Alert,
   Platform,
   Text,
   TextInput,
@@ -81,7 +82,23 @@ export default function RegisterScreen() {
             </View>
 
             <View>
-              <TouchableOpacity className="items-center bg-[#F4AE0D] text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50">
+              <TouchableOpacity
+                className="items-center bg-[#F4AE0D] text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50"
+                onPress={() => {
+                  Alert.alert(
+                    "Registered Successfully",
+                    "Proceed to login page",
+                    [
+                      {
+                        text: "OK",
+                        onPress: () => {
+                          navigation.navigate("Login");
+                        },
+                      },
+                    ]
+                  );
+                }}
+              >
                 <Text className="text-white font-semibold">Sign Up</Text>
               </TouchableOpacity>
             </View>

@@ -2,6 +2,7 @@ import { useNavigation } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useState } from "react";
 import {
+  Alert,
   Platform,
   ScrollView,
   Text,
@@ -66,7 +67,14 @@ export default function HomeScreen() {
             strokeWidth={2}
             color="white"
             onPress={() => {
-              navigation.navigate("Login");
+              Alert.alert("Logged out successfully", "Go back to login", [
+                {
+                  text: "OK",
+                  onPress: () => {
+                    navigation.navigate("Login");
+                  },
+                },
+              ]);
             }}
           />
           <Text className="text-white text-3xl font-bold">
