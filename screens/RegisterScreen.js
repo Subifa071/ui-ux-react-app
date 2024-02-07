@@ -26,7 +26,7 @@ export default function RegisterScreen() {
         <StatusBar style="light" />
         <View className="flex flex-column  h-full">
           <View className="flex items-center gap-10 mt-20">
-            <Text className="text-7xl font-bold text-center">Critix</Text>
+            <Text className="text-7xl font-bold text-center">MoviePlayer</Text>
             <Text className="text-2xl text-center">Create a new Account</Text>
           </View>
 

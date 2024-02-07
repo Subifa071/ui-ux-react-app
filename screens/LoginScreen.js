@@ -14,8 +14,24 @@ const ios = Platform.OS === "ios";
 
 export default function LoginScreen() {
   const [username, setUsername] = useState("");
+  const [usernameError, setUsernameError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const [password, setPassword] = useState("");
   const navigation = useNavigation();
+
+  const handleSubmission = () => {
+    if (username.length === 0) {
+      setUsernameError("Please provide a email");
+    }
+
+    if (password.length === 0) {
+      setPasswordError("Please provide a password");
+    }
+
+    if (username.length > 0 && password.length > 0) {
+      navigation.navigate("Home");
+    }
+  };
 
   return (
     <View className="flex-1 bg-white">
@@ -23,7 +39,7 @@ export default function LoginScreen() {
         <StatusBar style="light" />
         <View className="flex flex-column  h-full">
           <View className="flex items-center gap-10 mt-20">
-            <Text className="text-7xl font-bold text-center">Critix</Text>
+            <Text className="text-7xl font-bold text-center">MoviePlayer</Text>
             <Text className="text-2xl text-center">Login to your Account</Text>
           </View>
 
@@ -38,6 +54,11 @@ export default function LoginScreen() {
                 value={username}
                 onChangeText={setUsername}
               />
+              {usernameError && (
+                <Text className="mt-1 font-medium text-red-500">
+                  {usernameError}
+                </Text>
+              )}
             </View>
 
             <View>
@@ -51,6 +72,11 @@ export default function LoginScreen() {
                 onChangeText={setPassword}
                 secureTextEntry
               />
+              {passwordError && (
+                <Text className="mt-1 font-medium text-red-500">
+                  {passwordError}
+                </Text>
+              )}
             </View>
 
             <View className="flex flex-row justify-between">
@@ -66,7 +92,7 @@ export default function LoginScreen() {
               <TouchableOpacity
                 className="items-center bg-[#F4AE0D] text-white font-bold py-2 px-4 rounded-lg hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-opacity-50"
                 onPress={() => {
-                  navigation.navigate("Home");
+                  handleSubmission();
                 }}
               >
                 <Text className="text-white font-semibold">Sign In</Text>
