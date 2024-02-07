@@ -11,7 +11,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { ChevronLeftIcon } from "react-native-heroicons/outline";
+import { ChevronLeftIcon, PlayIcon } from "react-native-heroicons/outline";
 import { HeartIcon } from "react-native-heroicons/solid";
 import { SafeAreaView } from "react-native-safe-area-context";
 import StarRating from "react-native-star-rating-widget";
@@ -25,6 +25,7 @@ import {
 import Cast from "../components/cast";
 import Loading from "../components/loading";
 import MovieList from "../components/movieList";
+import PlayMovie from "../components/playMovie";
 import { styles, theme } from "../theme";
 
 const ios = Platform.OS == "ios";
@@ -40,6 +41,7 @@ export default function MovieScreen() {
   const [isFavourite, toggleFavourite] = useState(false);
   const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState(0);
+  const [playMovie, setPlayMovie] = React.useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -71,6 +73,11 @@ export default function MovieScreen() {
       setSimilarMovies(data.results);
     }
   };
+
+  if (playMovie) {
+    return <PlayMovie playMovie={playMovie} setPlayMovie={setPlayMovie} />;
+  }
+
   return (
     <ScrollView
       contentContainerStyle={{ paddingBottom: 20 }}
@@ -125,8 +132,16 @@ export default function MovieScreen() {
         )}
       </View>
       {/* movie details */}
-      <View style={{ marginTop: -(height * 0.09) }} className="space-y-3">
+      <View
+        style={{ marginTop: -(height * 0.09) }}
+        className="space-y-3 flex items-center"
+      >
         {/* title */}
+        <PlayIcon
+          size="50"
+          color={theme.background}
+          onPress={() => setPlayMovie(true)}
+        />
         <Text className="text-white text-center text-3xl font-bold tracking-widest">
           {movie?.title}
         </Text>
